@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>首页</title>
+    <link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+    <link rel="bookmark" th:href="@{/static/favicon.ico}"/>
+    <link rel="stylesheet" href="/static/AmazeUI-2.7.2/assets/css/admin.css"/>
+    <link rel="stylesheet" href="/static/AmazeUI-2.7.2/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="/static/AmazeUI-2.7.2/assets/css/amazeui.flat.min.css"/>
+    <script type="text/javascript" th:src="@{/static/jquery-2.1.4.js}"></script>
+    <script type="text/javascript" th:src="@{/static/AmazeUI-2.7.2/assets/js/amazeui.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/plugins/clipboard/clipboard.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/index.js}"></script>
+    <style>
+        .header {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 200%;
+            color: #d6d6d6;
+            margin-top: 30px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #d6d6d6;
+        }
+
+        .background {
+            background: url("/static/img/back.jpg") no-repeat;
+            background-size: 100%;
+            padding-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="am-g background">
+        <h1>NAILWEB</h1>
+        <p>A Rapid Development Framework For SpringBoot<br/>基于SpringBoot快速开发平台</p>
+    </div>
+</div>
+<br/>
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <div class="am-panel am-panel-default">
+            <div class="am-panel-hd">token</div>
+            <div id="token" class="am-panel-bd am-text-break" th:text="${session.token}">
+                面板内容
+            </div>
+        </div>
+        <button id="copy" type="button" class="am-btn am-btn-primary">复制</button>
+        <button id="open_swagger" type="button" class="am-btn am-btn-primary">打开swagger</button>
+    </div>
+</div>
+</body>
+</html>

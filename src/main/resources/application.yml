@@ -1,0 +1,39 @@
+server:
+  port: 8800
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/nailweb?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: root
+    password: root
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  resources:
+    add-mappings: true
+  mvc:
+    favicon:
+      enabled: false
+
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  type-aliases-package: com.lh.nailweb.mapper
+
+jwt:
+  secret: lh.dev.nailweb.sectet.2019je
+  expiration: 3600000
+  header: token
+
+springfox:
+    documentation:
+        swagger:
+            v2:
+                path: /api-docs
+
+snow-flake:
+  datacenter-id: 1
+  machine-id: 1

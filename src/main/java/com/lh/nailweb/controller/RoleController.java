@@ -1,0 +1,77 @@
+package com.lh.nailweb.controller;
+
+import com.lh.nailweb.constant.Constant;
+import com.lh.nailweb.entity.BaseMsg;
+import com.lh.nailweb.entity.sys.Role;
+import com.lh.nailweb.service.IRoleService;
+import com.lh.nailweb.util.MsgUtils;
+import com.lh.nailweb.vo.sys.role.RoleCreateVO;
+import com.lh.nailweb.vo.sys.role.RoleEditVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * @auther: loneyfall
+ * @date: 2019/8/12
+ * @description: 角色相关接口
+ */
+@Api(description = "角色相关接口")
+@RestController
+@RequestMapping("/sys/role")
+public class RoleController {
+
+    @Autowired
+    private IRoleService roleService;
+
+    @ApiOperation(value = "根据ID获取角色", notes = "根据ID获取角色")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "角色ID", dataType = "int", required = true, example = "0")})
+    @GetMapping("/{id}")
+    public BaseMsg getRole(@PathVariable("id") long id) {
+        Role role = roleService.getRoleById(id);
+        return MsgUtils.success(role);
+    }
+
+    @ApiOperation(value = "获取角色列表", notes = "获取角色列表")
+    @GetMapping("/list")
+    public BaseMsg getRoleList() {
+        List<Role> list = roleService.getRoleList();
+        return MsgUtils.success(list);
+    }
+
+    @ApiOperation(value = "新增角色", notes = "新增角色")
+    @ApiImplicitParams({@ApiImplicitParam(name = "name", value = "角色名称")
+            , @ApiImplicitParam(name = "remark", value = "角色备注")})
+    @PostMapping("/create")
+    public BaseMsg createRole(@RequestBody RoleCreateVO roleVO) {
+        if (StringUtils.isBlank(roleVO.getName())) {
+            return MsgUtils.error(Constant.HTTP_BADREQUEST, "角色名为空！");
+        }
+        if (StringUtils.isBlank(roleVO.getRemark())) {
+            return MsgUtils.error(Constant.HTTP_BADREQUEST, "备注为空！");
+        }
+        roleService.createRole(roleVO);
+        return MsgUtils.success();
+    }
+
+    @ApiOperation(value = "编辑角色", notes = "编辑角色")
+    @ApiImplicitParams({@ApiImplicitParam(name = "name", value = "角色名称")
+            , @ApiImplicitParam(name = "remark", value = "角色备注")})
+    @PutMapping("/edit")
+    public BaseMsg editRole(@RequestBody RoleEditVO roleVO) {
+        if (StringUtils.isBlank(roleVO.getName())) {
+            return MsgUtils.error(Constant.HTTP_BADREQUEST, "角色名为空！");
+        }
+        if (StringUtils.isBlank(roleVO.getRemark())) {
+            return MsgUtils.error(Constant.HTTP_BADREQUEST, "备注为空！");
+        }
+        roleService.eidtRole(roleVO);
+        return MsgUtils.success();
+    }
+}

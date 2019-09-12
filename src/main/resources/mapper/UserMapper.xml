@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lh.nailweb.mapper.UserMapper">
+    <insert id="createUser">
+        INSERT INTO sys_user (
+          id,
+          username,
+          password,
+          state,
+          nickname,
+          createTime,
+          updateTime,
+          delFlag
+        )
+        VALUES
+          (
+            #{id},
+            #{username},
+            #{password},
+            #{state},
+            #{nickname},
+            #{createTime},
+            #{updateTime},
+            #{delFlag}
+          )
+    </insert>
+
+    <update id="updateState">
+        UPDATE
+          sys_user
+        SET
+          state = #{state}
+        WHERE id = #{id}
+    </update>
+
+    <select id="getUserById" resultType="com.lh.nailweb.entity.sys.User">
+        SELECT
+          *
+        FROM
+          sys_user
+        WHERE delFlag = 0
+        AND id = #{id}
+    </select>
+
+    <select id="getUserByUserName" resultType="com.lh.nailweb.entity.sys.User">
+        SELECT
+          *
+        FROM
+          sys_user
+        WHERE delFlag = 0
+        AND username = #{username}
+    </select>
+
+    <select id="getUserList" resultType="com.lh.nailweb.vo.sys.user.UserVO">
+        SELECT
+          id,
+          username,
+          state,
+          nickname,
+          createTime,
+          updateTime,
+          delFlag
+        FROM
+          sys_user
+        WHERE delFlag = 0
+    </select>
+    <select id="getUserPage" resultType="com.lh.nailweb.vo.sys.user.UserVO">
+        SELECT
+        id,
+        username,
+        state,
+        nickname,
+        createTime,
+        updateTime,
+        delFlag
+        FROM
+        sys_user
+        <where>
+            <if test="null != username and '' != username">
+                AND username LIKE CONCAT('%', #{username}, '%')
+            </if>
+            <if test="null != nickname and '' != nickname">
+                AND nickname LIKE CONCAT('%', #{nickname}, '%')
+            </if>
+        </where>
+        LIMIT ${current - 1} , #{size}
+    </select>
+    <select id="getUserPageTotal" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        sys_user
+        <where>
+            <if test="null != username and '' != username">
+                AND username LIKE CONCAT('%', #{username}, '%')
+            </if>
+            <if test="null != nickname and '' != nickname">
+                AND nickname LIKE CONCAT('%', #{nickname}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>
