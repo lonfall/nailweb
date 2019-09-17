@@ -5,6 +5,7 @@ import com.lh.nailweb.entity.BaseMsg;
 import com.lh.nailweb.entity.sys.Role;
 import com.lh.nailweb.service.IRoleService;
 import com.lh.nailweb.util.MsgUtils;
+import com.lh.nailweb.vo.page.RolePage;
 import com.lh.nailweb.vo.sys.role.RoleCreateVO;
 import com.lh.nailweb.vo.sys.role.RoleEditVO;
 import io.swagger.annotations.Api;
@@ -45,6 +46,14 @@ public class RoleController {
         return MsgUtils.success(list);
     }
 
+    @ApiOperation(value = "获取角色分页列表", notes = "获取角色分页列表")
+    @ApiImplicitParams({@ApiImplicitParam(name = "page", value = "角色分页数据", required = true)})
+    @GetMapping("/page")
+    public BaseMsg getRolePage(@ModelAttribute RolePage page) {
+        page = roleService.getRolePage(page);
+        return MsgUtils.success(page);
+    }
+
     @ApiOperation(value = "新增角色", notes = "新增角色")
     @ApiImplicitParams({@ApiImplicitParam(name = "name", value = "角色名称")
             , @ApiImplicitParam(name = "remark", value = "角色备注")})
@@ -72,6 +81,14 @@ public class RoleController {
             return MsgUtils.error(Constant.HTTP_BADREQUEST, "备注为空！");
         }
         roleService.eidtRole(roleVO);
+        return MsgUtils.success();
+    }
+
+    @ApiOperation(value = "删除角色", notes = "删除角色")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "角色id")})
+    @DeleteMapping("/{id}")
+    public BaseMsg deleteRole(@PathVariable("id") long id) {
+        roleService.deleteRole(id);
         return MsgUtils.success();
     }
 }

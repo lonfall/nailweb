@@ -76,6 +76,7 @@
         FROM
         sys_user
         <where>
+            AND delFlag = 0
             <if test="null != username and '' != username">
                 AND username LIKE CONCAT('%', #{username}, '%')
             </if>
@@ -91,6 +92,7 @@
         FROM
         sys_user
         <where>
+            AND delFlag = 0
             <if test="null != username and '' != username">
                 AND username LIKE CONCAT('%', #{username}, '%')
             </if>

@@ -31,10 +31,48 @@
           delFlag = #{delFlag}
         WHERE id = #{id}
     </update>
+    <delete id="deleteRole">
+        UPDATE
+          sys_role
+        SET
+          delFlag = 1
+        WHERE id = #{id}
+    </delete>
     <select id="selectRoleById" resultType="com.lh.nailweb.entity.sys.Role">
         SELECT * FROM sys_role WHERE id = #{id}
     </select>
     <select id="getRoleList" resultType="com.lh.nailweb.entity.sys.Role">
         SELECT * FROM sys_role WHERE delFlag = 0
+    </select>
+    <select id="getRolePage" resultType="com.lh.nailweb.vo.sys.role.RoleVO">
+        SELECT
+        *
+        FROM
+        sys_role
+        <where>
+            AND delFlag = 0
+            <if test="null != name and '' != name">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="null != remark and '' != remark">
+                AND remark LIKE CONCAT('%', #{remark}, '%')
+            </if>
+        </where>
+        LIMIT ${current - 1} , #{size}
+    </select>
+    <select id="getRolePageTotal" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        sys_role
+        <where>
+            AND delFlag = 0
+            <if test="null != name and '' != name">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="null != remark and '' != remark">
+                AND remark LIKE CONCAT('%', #{remark}, '%')
+            </if>
+        </where>
     </select>
 </mapper>

@@ -1,6 +1,8 @@
 package com.lh.nailweb.mapper;
 
 import com.lh.nailweb.entity.sys.Role;
+import com.lh.nailweb.vo.page.RolePage;
+import com.lh.nailweb.vo.sys.role.RoleVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +22,10 @@ public interface RoleMapper {
     int insertRole(Role role);
 
     int updateRole(Role role);
+
+    List<RoleVO> getRolePage(RolePage page);
+
+    int getRolePageTotal(RolePage page);
+
+    int deleteRole(@Param("id") long id);
 }

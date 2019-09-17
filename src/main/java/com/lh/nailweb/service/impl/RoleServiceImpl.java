@@ -5,8 +5,10 @@ import com.lh.nailweb.entity.sys.Role;
 import com.lh.nailweb.mapper.RoleMapper;
 import com.lh.nailweb.service.IRoleService;
 import com.lh.nailweb.util.SnowFlakeUtil;
+import com.lh.nailweb.vo.page.RolePage;
 import com.lh.nailweb.vo.sys.role.RoleCreateVO;
 import com.lh.nailweb.vo.sys.role.RoleEditVO;
+import com.lh.nailweb.vo.sys.role.RoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,9 +53,25 @@ public class RoleServiceImpl implements IRoleService {
     @Override
     public int eidtRole(RoleEditVO roleVO) {
         Role role = mapper.selectRoleById(roleVO.getId());
+        if (null == role) {
+            return 0;
+        }
         role.setName(roleVO.getName());
         role.setRemark(roleVO.getRemark());
         role.setUpdateTime(new Date());
         return mapper.updateRole(role);
+    }
+
+    @Override
+    public RolePage getRolePage(RolePage page) {
+        List<RoleVO> list = mapper.getRolePage(page);
+        page.setData(list);
+        page.setTotal(mapper.getRolePageTotal(page));
+        return page;
+    }
+
+    @Override
+    public int deleteRole(long id) {
+        return mapper.deleteRole(id);
     }
 }
