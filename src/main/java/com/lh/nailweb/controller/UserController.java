@@ -8,6 +8,7 @@ import com.lh.nailweb.util.JwtTokenUtil;
 import com.lh.nailweb.util.LoginUtils;
 import com.lh.nailweb.util.MsgUtils;
 import com.lh.nailweb.vo.page.UserPage;
+import com.lh.nailweb.vo.sys.user.UserEditVO;
 import com.lh.nailweb.vo.sys.user.UserRegisterVO;
 import com.lh.nailweb.vo.sys.user.UserVO;
 import io.swagger.annotations.Api;
@@ -121,5 +122,25 @@ public class UserController {
             return MsgUtils.success();
         }
         return MsgUtils.error("未找到该用户！");
+    }
+
+    @ApiOperation(value = "删除用户", notes = "删除用户")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户id")})
+    @DeleteMapping("/{id}")
+    public BaseMsg deleteRole(@PathVariable("id") long id) {
+        userService.deleteUser(id);
+        return MsgUtils.success();
+    }
+
+    @ApiOperation(value = "编辑用户", notes = "编辑用户")
+    @ApiImplicitParams({@ApiImplicitParam(name = "name", value = "用户名称")
+            , @ApiImplicitParam(name = "remark", value = "用户备注")})
+    @PutMapping("/edit")
+    public BaseMsg editRole(@RequestBody UserEditVO userVO) {
+        if (StringUtils.isBlank(userVO.getNickname())) {
+            return MsgUtils.error(Constant.HTTP_BADREQUEST, "昵称为空！");
+        }
+        userService.eidtUser(userVO);
+        return MsgUtils.success();
     }
 }

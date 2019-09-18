@@ -33,6 +33,28 @@
         WHERE id = #{id}
     </update>
 
+    <update id="updateUser">
+        UPDATE
+          sys_user
+        SET
+          username = #{username},
+          password = #{password},
+          nickname = #{nickname},
+          state = #{state},
+          createTime = #{createTime},
+          updateTime = #{updateTime},
+          delFlag = #{delFlag}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUser">
+        UPDATE
+          sys_user
+        SET
+          delFlag = 1
+        WHERE id = #{id}
+    </delete>
+
     <select id="getUserById" resultType="com.lh.nailweb.entity.sys.User">
         SELECT
           *

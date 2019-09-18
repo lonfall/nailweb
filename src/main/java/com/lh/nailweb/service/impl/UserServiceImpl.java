@@ -7,6 +7,7 @@ import com.lh.nailweb.mapper.UserMapper;
 import com.lh.nailweb.service.IUserService;
 import com.lh.nailweb.util.SnowFlakeUtil;
 import com.lh.nailweb.vo.page.UserPage;
+import com.lh.nailweb.vo.sys.user.UserEditVO;
 import com.lh.nailweb.vo.sys.user.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -83,5 +84,20 @@ public class UserServiceImpl implements IUserService {
         userVO.setUpdateTime(user.getUpdateTime());
         userVO.setDelFlag(user.getDelFlag());
         return userVO;
+    }
+
+    @Override
+    public int deleteUser(long id) {
+        return mapper.deleteUser(id);
+    }
+
+    @Override
+    public int eidtUser(UserEditVO userVO) {
+        User user = mapper.getUserById(userVO.getId());
+        if (null == user) {
+            return 0;
+        }
+        user.setNickname(userVO.getNickname());
+        return mapper.updateUser(user);
     }
 }

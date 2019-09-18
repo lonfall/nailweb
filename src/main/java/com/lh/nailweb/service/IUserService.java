@@ -2,6 +2,7 @@ package com.lh.nailweb.service;
 
 import com.lh.nailweb.entity.sys.User;
 import com.lh.nailweb.vo.page.UserPage;
+import com.lh.nailweb.vo.sys.user.UserEditVO;
 import com.lh.nailweb.vo.sys.user.UserVO;
 
 import java.util.List;
@@ -68,4 +69,20 @@ public interface IUserService {
      * @return
      */
     UserVO userToVO(User user);
+
+    /**
+     * 删除用户
+     *
+     * @param id
+     * @return
+     */
+    int deleteUser(long id);
+
+    /**
+     * 编辑用户
+     *
+     * @param userVO
+     * @return
+     */
+    int eidtUser(UserEditVO userVO);
 }

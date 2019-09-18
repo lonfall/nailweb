@@ -28,4 +28,8 @@ public interface UserMapper {
     int getUserPageTotal(UserPage page);
 
     int updateState(@Param("id") long id, @Param("state") int state);
+
+    int deleteUser(@Param("id") long id);
+
+    int updateUser(User user);
 }

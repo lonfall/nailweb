@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * @auther: loneyfall
  * @date: 2019/8/12
- * @description:
+ * @description: 编辑角色VO
  */
 @ApiModel(value = "编辑角色VO", description = "编辑角色VO")
 public class RoleEditVO {
