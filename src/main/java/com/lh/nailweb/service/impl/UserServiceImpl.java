@@ -80,6 +80,7 @@ public class UserServiceImpl implements IUserService {
         userVO.setUsername(user.getUsername());
         userVO.setState(user.getState());
         userVO.setNickname(user.getNickname());
+        userVO.setAvatar(user.getAvatar());
         userVO.setCreateTime(user.getCreateTime());
         userVO.setUpdateTime(user.getUpdateTime());
         userVO.setDelFlag(user.getDelFlag());
@@ -97,7 +98,17 @@ public class UserServiceImpl implements IUserService {
         if (null == user) {
             return 0;
         }
-        user.setNickname(userVO.getNickname());
+        if (null != userVO.getNickname() && !"".equals(userVO.getNickname())) {
+            user.setNickname(userVO.getNickname());
+        }
+        if (null != userVO.getAvatar() && !"".equals(userVO.getAvatar())) {
+            user.setAvatar(userVO.getAvatar());
+        }
         return mapper.updateUser(user);
+    }
+
+    @Override
+    public int updateAvatar(long id, String img) {
+        return mapper.updateAvatar(id, img);
     }
 }

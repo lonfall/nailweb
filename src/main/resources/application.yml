@@ -37,3 +37,7 @@ springfox:
 snow-flake:
   datacenter-id: 1
   machine-id: 1
+
+file:
+  upload:
+    dir: F:/nailweb/img

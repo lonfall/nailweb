@@ -32,4 +32,6 @@ public interface UserMapper {
     int deleteUser(@Param("id") long id);
 
     int updateUser(User user);
+
+    int updateAvatar(@Param("id") long id, @Param("img") String img);
 }

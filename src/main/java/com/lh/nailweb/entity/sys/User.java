@@ -24,6 +24,9 @@ public class User extends BaseEntity {
     @ApiModelProperty(value = "昵称", name = "nickname")
     // 昵称
     private String nickname;
+    @ApiModelProperty(value = "头像", name = "avatar")
+    // 头像
+    private String avatar;
 
     public long getId() {
         return id;
@@ -63,5 +66,13 @@ public class User extends BaseEntity {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

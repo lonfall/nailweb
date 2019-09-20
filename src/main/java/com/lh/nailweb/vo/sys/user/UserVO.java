@@ -19,6 +19,9 @@ public class UserVO extends BaseVo {
     @ApiModelProperty(value = "昵称", name = "nickname")
     // 昵称
     private String nickname;
+    @ApiModelProperty(value = "头像", name = "avatar")
+    // 头像
+    private String avatar;
 
     public long getId() {
         return id;
@@ -50,5 +53,13 @@ public class UserVO extends BaseVo {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

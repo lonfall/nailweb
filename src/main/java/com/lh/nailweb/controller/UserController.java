@@ -133,14 +133,22 @@ public class UserController {
     }
 
     @ApiOperation(value = "编辑用户", notes = "编辑用户")
-    @ApiImplicitParams({@ApiImplicitParam(name = "name", value = "用户名称")
-            , @ApiImplicitParam(name = "remark", value = "用户备注")})
+    @ApiImplicitParams({@ApiImplicitParam(name = "nickname", value = "用户昵称")
+            , @ApiImplicitParam(name = "avatar", value = "用户头像")})
     @PutMapping("/edit")
     public BaseMsg editRole(@RequestBody UserEditVO userVO) {
         if (StringUtils.isBlank(userVO.getNickname())) {
             return MsgUtils.error(Constant.HTTP_BADREQUEST, "昵称为空！");
         }
         userService.eidtUser(userVO);
+        return MsgUtils.success();
+    }
+
+    @ApiOperation(value = "更新用户头像", notes = "更新用户头像")
+    @ApiImplicitParams({@ApiImplicitParam(name = "img", value = "用户头像链接")})
+    @PutMapping("/avatar/{id}")
+    public BaseMsg updateAvatar(@PathVariable("id") long id, @RequestParam("img") String img) {
+        userService.updateAvatar(id, img);
         return MsgUtils.success();
     }
 }

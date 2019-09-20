@@ -85,4 +85,14 @@ public interface IUserService {
      * @return
      */
     int eidtUser(UserEditVO userVO);
+
+    /**
+     * 更新用户头像
+     *
+     *
+     * @param id
+     * @param img
+     * @return
+     */
+    int updateAvatar(long id, String img);
 }
