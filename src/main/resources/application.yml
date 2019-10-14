@@ -1,5 +1,7 @@
 server:
   port: 8800
+  tomcat:
+    uri-encoding: UTF-8
 
 spring:
   datasource:
@@ -18,6 +20,11 @@ spring:
   mvc:
     favicon:
       enabled: false
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
