@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "菜单类", description = "菜单类")
 public class Menu extends BaseEntity {
     private long id;
-    @ApiModelProperty(value = "父节点ID，一级菜单为0", name = "pid")
+    @ApiModelProperty(value = "父节点ID，一级菜单为0", name = "pid", example = "0")
     private long pid;
     @ApiModelProperty(value = "菜单名称", name = "name")
     private String name;
@@ -20,11 +20,11 @@ public class Menu extends BaseEntity {
     private String url;
     @ApiModelProperty(value = "权限标志", name = "permission")
     private String permission;
-    @ApiModelProperty(value = "类型 0：目录 1：菜单 2：权限", name = "type")
+    @ApiModelProperty(value = "类型 0：目录 1：菜单 2：权限", name = "type", example = "0")
     private int type;
     @ApiModelProperty(value = "图标", name = "icon")
     private String icon;
-    @ApiModelProperty(value = "排序", name = "sort")
+    @ApiModelProperty(value = "排序", name = "sort", example = "0")
     private int sort;
     @ApiModelProperty(value = "是否隐藏", name = "hide")
     private boolean hide;

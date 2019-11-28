@@ -78,4 +78,11 @@ public class MenuController {
         }
         return MsgUtils.success(nodes);
     }
+
+    @ApiOperation(value = "获取菜单树", notes = "获取菜单树")
+    @GetMapping("tree")
+    public BaseMsg getMenuTree() {
+        List<EleTreeNode<MenuVO>> tree = menuService.getMenuTree();
+        return MsgUtils.success(tree);
+    }
 }

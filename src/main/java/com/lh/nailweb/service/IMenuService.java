@@ -1,5 +1,6 @@
 package com.lh.nailweb.service;
 
+import com.lh.nailweb.vo.element.EleTreeNode;
 import com.lh.nailweb.vo.sys.menu.MenuCreateVO;
 import com.lh.nailweb.vo.sys.menu.MenuEditVO;
 import com.lh.nailweb.vo.sys.menu.MenuVO;
@@ -51,4 +52,11 @@ public interface IMenuService {
      * @return
      */
     boolean hasChildren(long id);
+
+    /**
+     * 获取菜单树
+     *
+     * @return
+     */
+    List<EleTreeNode<MenuVO>> getMenuTree();
 }
