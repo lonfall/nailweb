@@ -1,5 +1,6 @@
 package com.lh.nailweb.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @date: 2019/9/2
  * @description: 基础分页类
  */
+@ApiModel(value = "基础分页类", description = "基础分页类")
 public class BasePage<T> {
     @ApiModelProperty(value = "当前页", name = "current")
     private int current;

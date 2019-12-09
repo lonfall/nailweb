@@ -1,5 +1,6 @@
 package com.lh.nailweb.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
  * @date: 2019/9/2
  * @description: 基础VO类
  */
+@ApiModel(value = "基础VO类", description = "基础VO类")
 public class BaseVo {
     @ApiModelProperty(value = "创建时间", name = "createTime")
     // 创建时间

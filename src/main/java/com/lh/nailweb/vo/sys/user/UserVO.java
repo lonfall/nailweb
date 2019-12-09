@@ -1,6 +1,7 @@
 package com.lh.nailweb.vo.sys.user;
 
 import com.lh.nailweb.vo.BaseVo;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -8,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @date: 2019/9/2
  * @description: 用户VO类
  */
+@ApiModel(value = "用户详情VO", description = "用户详情VO")
 public class UserVO extends BaseVo {
     private long id;
     @ApiModelProperty(value = "用户名", name = "username")

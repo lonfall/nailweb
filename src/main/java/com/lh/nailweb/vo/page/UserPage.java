@@ -2,6 +2,7 @@ package com.lh.nailweb.vo.page;
 
 import com.lh.nailweb.vo.BasePage;
 import com.lh.nailweb.vo.sys.user.UserVO;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @date: 2019/9/2
  * @description: 用户分页类
  */
+@ApiModel(value = "用户分页类", description = "用户分页类")
 public class UserPage extends BasePage<UserVO> {
     @ApiModelProperty(value = "用户名", name = "username")
     // 用户名

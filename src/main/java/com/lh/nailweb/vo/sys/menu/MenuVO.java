@@ -1,5 +1,6 @@
 package com.lh.nailweb.vo.sys.menu;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -7,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @date: 2019/9/25
  * @description:
  */
+@ApiModel(value = "菜单详情VO", description = "菜单详情VO")
 public class MenuVO {
     private long id;
     @ApiModelProperty(value = "父节点ID，一级菜单为0", name = "pid")

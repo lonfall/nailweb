@@ -2,6 +2,7 @@ package com.lh.nailweb.vo.page;
 
 import com.lh.nailweb.vo.BasePage;
 import com.lh.nailweb.vo.sys.role.RoleVO;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @date: 2019/9/16
  * @description: 角色分页类
  */
+@ApiModel(value = "角色分页类", description = "角色分页类")
 public class RolePage extends BasePage<RoleVO> {
     @ApiModelProperty(value = "角色名称", name = "name")
     private String name;
