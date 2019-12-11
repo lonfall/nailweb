@@ -28,4 +28,10 @@ public interface RoleMapper {
     int getRolePageTotal(RolePage page);
 
     int deleteRole(@Param("id") long id);
+
+    Long[] selectRoleMenuIds(@Param("id") long id);
+
+    int deleteRoleMenuIds(@Param("id") long id);
+
+    int insertRoleMenuIds(@Param("id") long id, @Param("menuIds") List<Long> menuIds);
 }

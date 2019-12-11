@@ -91,4 +91,20 @@ public class RoleController {
         roleService.deleteRole(id);
         return MsgUtils.success();
     }
+
+    @ApiOperation(value = "获取角色菜单权限", notes = "获取角色菜单权限")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "角色id")})
+    @GetMapping("/menu/{id}")
+    public BaseMsg getRoleMenuIds(@PathVariable("id") long id) {
+        Long[] menuIds = roleService.getRoleMenuIds(id);
+        return MsgUtils.success(menuIds);
+    }
+
+    @ApiOperation(value = "更新角色菜单权限", notes = "更新角色菜单权限")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "角色id")})
+    @PostMapping("/menu/{id}")
+    public BaseMsg updateRoleMenuIds(@PathVariable("id") long id, @RequestBody List<Long> menuIds) {
+        roleService.updateRoleMenuIds(id, menuIds);
+        return MsgUtils.success();
+    }
 }

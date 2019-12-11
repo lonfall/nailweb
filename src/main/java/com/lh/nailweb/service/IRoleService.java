@@ -59,4 +59,21 @@ public interface IRoleService {
      * @return
      */
     int deleteRole(long id);
+
+    /**
+     * 获取角色菜单权限
+     *
+     * @param id
+     * @return
+     */
+    Long[] getRoleMenuIds(long id);
+
+    /**
+     * 更新角色菜单权限
+     *
+     * @param id
+     * @param menuIds
+     * @return
+     */
+    int updateRoleMenuIds(long id, List<Long> menuIds);
 }

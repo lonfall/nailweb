@@ -11,6 +11,7 @@ import com.lh.nailweb.vo.sys.role.RoleEditVO;
 import com.lh.nailweb.vo.sys.role.RoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -73,5 +74,21 @@ public class RoleServiceImpl implements IRoleService {
     @Override
     public int deleteRole(long id) {
         return mapper.deleteRole(id);
+    }
+
+    @Override
+    public Long[] getRoleMenuIds(long id) {
+        return mapper.selectRoleMenuIds(id);
+    }
+
+    @Transactional
+    @Override
+    public int updateRoleMenuIds(long id, List<Long> menuIds) {
+        mapper.deleteRoleMenuIds(id);
+        if (null != menuIds && menuIds.size() > 0) {
+            return mapper.insertRoleMenuIds(id, menuIds);
+        } else {
+            return 0;
+        }
     }
 }

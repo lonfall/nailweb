@@ -20,6 +20,13 @@
             #{delFlag}
           )
     </insert>
+    <insert id="insertRoleMenuIds">
+        INSERT INTO sys_role_menu (role_id, menu_id)
+        VALUES
+        <foreach collection="menuIds" item="item" separator=",">
+            (#{id},#{item})
+        </foreach>
+    </insert>
     <update id="updateRole">
         UPDATE
           sys_role
@@ -37,6 +44,12 @@
         SET
           delFlag = 1
         WHERE id = #{id}
+    </delete>
+    <delete id="deleteRoleMenuIds">
+        DELETE
+        FROM
+          sys_role_menu
+        WHERE role_id = #{id}
     </delete>
     <select id="selectRoleById" resultType="com.lh.nailweb.entity.sys.Role">
         SELECT * FROM sys_role WHERE id = #{id}
@@ -74,5 +87,12 @@
                 AND remark LIKE CONCAT('%', #{remark}, '%')
             </if>
         </where>
+    </select>
+    <select id="selectRoleMenuIds" resultType="java.lang.Long">
+        SELECT
+          menu_id
+        FROM
+          sys_role_menu
+        WHERE role_id = #{id}
     </select>
 </mapper>
