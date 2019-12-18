@@ -101,7 +101,7 @@ public class RoleController {
     }
 
     @ApiOperation(value = "更新角色菜单权限", notes = "更新角色菜单权限")
-    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "角色id")})
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "角色id"), @ApiImplicitParam(name = "menuIds", value = "菜单ID列表")})
     @PostMapping("/menu/{id}")
     public BaseMsg updateRoleMenuIds(@PathVariable("id") long id, @RequestBody List<Long> menuIds) {
         roleService.updateRoleMenuIds(id, menuIds);

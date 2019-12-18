@@ -111,4 +111,19 @@ public class UserServiceImpl implements IUserService {
     public int updateAvatar(long id, String img) {
         return mapper.updateAvatar(id, img);
     }
+
+    @Override
+    public Long[] getUserRoleIds(long id) {
+        return mapper.getUserRoleIds(id);
+    }
+
+    @Override
+    public int updateUserRoleIds(long id, List<Long> roleIds) {
+        mapper.deleteUserRoleIds(id);
+        if (null != roleIds && roleIds.size() > 0) {
+            return mapper.insertUserRoleIds(id, roleIds);
+        } else {
+            return 0;
+        }
+    }
 }

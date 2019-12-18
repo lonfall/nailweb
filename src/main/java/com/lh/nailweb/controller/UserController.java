@@ -145,10 +145,26 @@ public class UserController {
     }
 
     @ApiOperation(value = "更新用户头像", notes = "更新用户头像")
-    @ApiImplicitParams({@ApiImplicitParam(name = "img", value = "用户头像链接")})
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户ID"), @ApiImplicitParam(name = "img", value = "用户头像链接")})
     @PutMapping("/avatar/{id}")
     public BaseMsg updateAvatar(@PathVariable("id") long id, @RequestParam("img") String img) {
         userService.updateAvatar(id, img);
+        return MsgUtils.success();
+    }
+
+    @ApiOperation(value = "获取用户角色权限", notes = "获取用户角色权限")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户ID")})
+    @GetMapping("/role/{id}")
+    public BaseMsg getUserRoleIds(@PathVariable("id") long id) {
+        Long[] roleIds = userService.getUserRoleIds(id);
+        return MsgUtils.success(roleIds);
+    }
+
+    @ApiOperation(value = "更新用户角色权限", notes = "更新用户角色权限")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户ID"), @ApiImplicitParam(name = "roleIds", value = "角色ID列表")})
+    @PostMapping("/role/{id}")
+    public BaseMsg updateUserRoleIds(@PathVariable("id") long id, @RequestBody List<Long> roleIds) {
+        userService.updateUserRoleIds(id, roleIds);
         return MsgUtils.success();
     }
 }

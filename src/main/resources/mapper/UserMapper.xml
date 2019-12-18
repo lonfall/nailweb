@@ -24,6 +24,13 @@
             #{delFlag}
           )
     </insert>
+    <insert id="insertUserRoleIds">
+        INSERT INTO sys_user_role (user_id, role_id)
+        VALUES
+        <foreach collection="roleIds" item="item" separator=",">
+            (#{id},#{item})
+        </foreach>
+    </insert>
 
     <update id="updateState">
         UPDATE
@@ -62,6 +69,12 @@
         SET
           delFlag = 1
         WHERE id = #{id}
+    </delete>
+    <delete id="deleteUserRoleIds">
+        DELETE
+        FROM
+          sys_user_role
+        WHERE user_id = #{id}
     </delete>
 
     <select id="getUserById" resultType="com.lh.nailweb.entity.sys.User">
@@ -131,5 +144,12 @@
                 AND nickname LIKE CONCAT('%', #{nickname}, '%')
             </if>
         </where>
+    </select>
+    <select id="getUserRoleIds" resultType="java.lang.Long">
+        SELECT
+          role_id
+        FROM
+          sys_user_role
+        WHERE user_id = #{id}
     </select>
 </mapper>

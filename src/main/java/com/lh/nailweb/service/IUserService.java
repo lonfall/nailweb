@@ -89,10 +89,26 @@ public interface IUserService {
     /**
      * 更新用户头像
      *
-     *
      * @param id
      * @param img
      * @return
      */
     int updateAvatar(long id, String img);
+
+    /**
+     * 获取用户角色权限
+     *
+     * @param id
+     * @return
+     */
+    Long[] getUserRoleIds(long id);
+
+    /**
+     * 更新用户角色权限
+     *
+     * @param id
+     * @param roleIds
+     * @return
+     */
+    int updateUserRoleIds(long id, List<Long> roleIds);
 }

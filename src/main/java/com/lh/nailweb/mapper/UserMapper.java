@@ -34,4 +34,10 @@ public interface UserMapper {
     int updateUser(User user);
 
     int updateAvatar(@Param("id") long id, @Param("img") String img);
+
+    Long[] getUserRoleIds(@Param("id") long id);
+
+    int deleteUserRoleIds(@Param("id") long id);
+
+    int insertUserRoleIds(@Param("id") long id, @Param("roleIds") List<Long> roleIds);
 }
