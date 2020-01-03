@@ -51,6 +51,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
 
+    @Autowired
     public JwtLoginFilter(AuthenticationManager authenticationManager) {
         super.setAuthenticationManager(authenticationManager);
         this.authenticationManager = authenticationManager;

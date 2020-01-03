@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,6 +55,7 @@ public class RoleController {
         return MsgUtils.success(page);
     }
 
+    @PreAuthorize("hasAnyAuthority('role:create')")
     @ApiOperation(value = "新增角色", notes = "新增角色")
     @ApiImplicitParams({@ApiImplicitParam(name = "name", value = "角色名称")
             , @ApiImplicitParam(name = "remark", value = "角色备注")})
@@ -69,6 +71,7 @@ public class RoleController {
         return MsgUtils.success();
     }
 
+    @PreAuthorize("hasAnyAuthority('role:edit')")
     @ApiOperation(value = "编辑角色", notes = "编辑角色")
     @ApiImplicitParams({@ApiImplicitParam(name = "name", value = "角色名称")
             , @ApiImplicitParam(name = "remark", value = "角色备注")})
@@ -84,6 +87,7 @@ public class RoleController {
         return MsgUtils.success();
     }
 
+    @PreAuthorize("hasAnyAuthority('role:delete')")
     @ApiOperation(value = "删除角色", notes = "删除角色")
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "角色id")})
     @DeleteMapping("/{id}")

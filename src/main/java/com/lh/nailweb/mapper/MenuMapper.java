@@ -23,4 +23,8 @@ public interface MenuMapper {
     List<MenuVO> getMenuChildrenList(@Param("pid") long pid);
 
     int countChildren(@Param("id") long id);
+
+    List<MenuVO> getCurrentMenuChildrenList(@Param("pid") long pid, @Param("userId") long userId);
+
+    int countChildrenCurrent(@Param("id") long id, @Param("userId") long userId);
 }

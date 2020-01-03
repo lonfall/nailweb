@@ -1,6 +1,7 @@
 package com.lh.nailweb.service.impl;
 
 import com.lh.nailweb.constant.enums.DelFlagEnum;
+import com.lh.nailweb.constant.enums.MenuTypeEnum;
 import com.lh.nailweb.constant.enums.UserStateEnum;
 import com.lh.nailweb.entity.sys.User;
 import com.lh.nailweb.mapper.UserMapper;
@@ -125,5 +126,10 @@ public class UserServiceImpl implements IUserService {
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public List<String> getUserPermission(long id) {
+        return mapper.selectUserPermission(id, MenuTypeEnum.AUTH.getValue());
     }
 }

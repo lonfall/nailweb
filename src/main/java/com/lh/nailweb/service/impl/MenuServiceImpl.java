@@ -86,6 +86,12 @@ public class MenuServiceImpl implements IMenuService {
         return menuToTreeNode(menuList);
     }
 
+    /**
+     * 获取子菜单
+     *
+     * @param list
+     * @return
+     */
     private List<EleTreeNode<MenuVO>> menuToTreeNode(List<MenuVO> list) {
         List<EleTreeNode<MenuVO>> nodes = new ArrayList<>();
         for (MenuVO menu : list) {
@@ -93,12 +99,43 @@ public class MenuServiceImpl implements IMenuService {
             node.setId(menu.getId());
             node.setData(menu);
             node.setHasChildren(mapper.countChildren(menu.getId()) > 0);
-            List<MenuVO> menuList = mapper.getMenuChildrenList(menu.getId());
             if (node.isHasChildren()) {
+                List<MenuVO> menuList = mapper.getMenuChildrenList(menu.getId());
                 node.setChildren(menuToTreeNode(menuList));
             }
             nodes.add(node);
         }
         return nodes;
     }
+
+    @Override
+    public List<EleTreeNode<MenuVO>> getMenuTreeCurrent(long userId) {
+        List<MenuVO> menuList = mapper.getCurrentMenuChildrenList(0, userId);
+        return menuToTreeNodeCurrent(menuList, userId);
+    }
+
+    /**
+     * 获取当前用户子菜单
+     *
+     * @param list
+     * @param userId
+     * @return
+     */
+    private List<EleTreeNode<MenuVO>> menuToTreeNodeCurrent(List<MenuVO> list, long userId) {
+        List<EleTreeNode<MenuVO>> nodes = new ArrayList<>();
+        for (MenuVO menu : list) {
+            EleTreeNode<MenuVO> node = new EleTreeNode<>();
+            node.setId(menu.getId());
+            node.setData(menu);
+            node.setHasChildren(mapper.countChildrenCurrent(menu.getId(), userId) > 0);
+            if (node.isHasChildren()) {
+                List<MenuVO> menuList = mapper.getCurrentMenuChildrenList(menu.getId(), userId);
+                node.setChildren(menuToTreeNodeCurrent(menuList, userId));
+            }
+            nodes.add(node);
+        }
+        return nodes;
+    }
+
+
 }

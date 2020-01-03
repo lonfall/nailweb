@@ -40,4 +40,6 @@ public interface UserMapper {
     int deleteUserRoleIds(@Param("id") long id);
 
     int insertUserRoleIds(@Param("id") long id, @Param("roleIds") List<Long> roleIds);
+
+    List<String> selectUserPermission(@Param("id") long id, @Param("type") int type);
 }

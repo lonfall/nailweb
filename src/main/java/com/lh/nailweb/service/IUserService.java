@@ -111,4 +111,12 @@ public interface IUserService {
      * @return
      */
     int updateUserRoleIds(long id, List<Long> roleIds);
+
+    /**
+     * 获取用户权限列表
+     *
+     * @param id
+     * @return
+     */
+    List<String> getUserPermission(long id);
 }

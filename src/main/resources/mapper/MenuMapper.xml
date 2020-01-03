@@ -80,4 +80,39 @@
         WHERE pid = #{id}
           AND delFlag = 0
     </select>
+    <select id="getCurrentMenuChildrenList" resultType="com.lh.nailweb.vo.sys.menu.MenuVO">
+        SELECT
+          m.id,
+          m.pid,
+          m.name,
+          m.url,
+          m.permission,
+          m.type,
+          m.icon,
+          m.sort,
+          m.hide
+        FROM
+          sys_menu m
+          INNER JOIN sys_role_menu rm
+            ON rm.menu_id = m.id
+          INNER JOIN sys_user_role ur
+            ON ur.role_id = rm.role_id
+            AND ur.user_id = #{userId}
+        WHERE m.pid = #{pid}
+          AND m.delFlag = 0
+        ORDER BY m.sort ASC
+    </select>
+    <select id="countChildrenCurrent" resultType="java.lang.Integer">
+        SELECT
+          COUNT(1)
+        FROM
+          sys_menu m
+          INNER JOIN sys_role_menu rm
+            ON rm.menu_id = m.id
+          INNER JOIN sys_user_role ur
+            ON ur.role_id = rm.role_id
+            AND ur.user_id = #{userId}
+        WHERE m.pid = #{id}
+          AND m.delFlag = 0
+    </select>
 </mapper>

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @auther: loneyfall
  * @date: 2019/8/9
- * @description:
+ * @description: 雪花算法配置项
  */
 @Configuration
 public class SnowFlakeConfig {

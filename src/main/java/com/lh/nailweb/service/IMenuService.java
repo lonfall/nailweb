@@ -59,4 +59,12 @@ public interface IMenuService {
      * @return
      */
     List<EleTreeNode<MenuVO>> getMenuTree();
+
+    /**
+     * 获取当前用户菜单
+     *
+     * @param userId
+     * @return
+     */
+    List<EleTreeNode<MenuVO>> getMenuTreeCurrent(long userId);
 }

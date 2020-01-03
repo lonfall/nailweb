@@ -97,7 +97,9 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             if (username != null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 //                logger.info("获取用户成功:" + JSON.toJSONString(userDetails));
-                return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+                if (userDetails != null) {
+                    return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+                }
             }
             return null;
         }

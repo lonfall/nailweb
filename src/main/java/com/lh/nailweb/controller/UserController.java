@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,6 +106,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('menu:edit')")
     @ApiOperation(value = "切换用户状态", notes = "切换用户状态")
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户id")})
     @PutMapping("state/{id}")
@@ -124,6 +126,7 @@ public class UserController {
         return MsgUtils.error("未找到该用户！");
     }
 
+    @PreAuthorize("hasAnyAuthority('menu:delete')")
     @ApiOperation(value = "删除用户", notes = "删除用户")
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户id")})
     @DeleteMapping("/{id}")
@@ -132,6 +135,7 @@ public class UserController {
         return MsgUtils.success();
     }
 
+    @PreAuthorize("hasAnyAuthority('menu:edit')")
     @ApiOperation(value = "编辑用户", notes = "编辑用户")
     @ApiImplicitParams({@ApiImplicitParam(name = "nickname", value = "用户昵称")
             , @ApiImplicitParam(name = "avatar", value = "用户头像")})
