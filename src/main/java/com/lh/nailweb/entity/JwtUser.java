@@ -20,7 +20,7 @@ public class JwtUser implements UserDetails {
     private String password;
     @ApiModelProperty(value = "权限列表", name = "authorities")
     private Collection<? extends GrantedAuthority> authorities;
-    @ApiModelProperty(value = "状态", name = "state")
+    @ApiModelProperty(value = "状态", name = "state", example = "0")
     private Integer state;
 
     public JwtUser(String username, String password) {

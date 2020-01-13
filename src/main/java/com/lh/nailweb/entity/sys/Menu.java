@@ -26,7 +26,7 @@ public class Menu extends BaseEntity {
     private String icon;
     @ApiModelProperty(value = "排序", name = "sort", example = "0")
     private int sort;
-    @ApiModelProperty(value = "是否隐藏", name = "hide")
+    @ApiModelProperty(value = "是否隐藏", name = "hide", example = "false")
     private boolean hide;
 
     public long getId() {

@@ -15,7 +15,7 @@ public class UserVO extends BaseVo {
     @ApiModelProperty(value = "用户名", name = "username")
     // 用户名
     private String username;
-    @ApiModelProperty(value = "状态", name = "state")
+    @ApiModelProperty(value = "状态", name = "state", example = "0")
     // 状态
     private int state;
     @ApiModelProperty(value = "昵称", name = "nickname")

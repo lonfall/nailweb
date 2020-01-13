@@ -13,11 +13,11 @@ import java.util.List;
  */
 @ApiModel(value = "基础分页类", description = "基础分页类")
 public class BasePage<T> {
-    @ApiModelProperty(value = "当前页", name = "current")
+    @ApiModelProperty(value = "当前页", name = "current", example = "1")
     private int current;
-    @ApiModelProperty(value = "每页条数", name = "size")
+    @ApiModelProperty(value = "每页条数", name = "size", example = "10")
     private int size;
-    @ApiModelProperty(value = "总条数", name = "total")
+    @ApiModelProperty(value = "总条数", name = "total", example = "0")
     private int total;
     @ApiModelProperty(value = "数据", name = "data")
     private List<T> data;

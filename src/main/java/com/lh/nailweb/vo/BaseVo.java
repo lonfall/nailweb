@@ -18,7 +18,7 @@ public class BaseVo {
     @ApiModelProperty(value = "更新时间", name = "updateTime")
     // 更新时间
     private Date updateTime;
-    @ApiModelProperty(value = "删除标记 0：未删除 1：已删除", name = "delFlag")
+    @ApiModelProperty(value = "删除标记 0：未删除 1：已删除", name = "delFlag", example = "0")
     // 删除标记 0：未删除 1：已删除
     private int delFlag;
 
