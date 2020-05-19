@@ -27,7 +27,7 @@ spring:
       enabled: true
 
 mybatis:
-  mapper-locations: classpath*:mapper/*Mapper.xml
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
   type-aliases-package: com.lh.nailweb.mapper
 
 jwt:
@@ -36,10 +36,10 @@ jwt:
   header: token
 
 springfox:
-    documentation:
-        swagger:
-            v2:
-                path: /api-docs
+  documentation:
+    swagger:
+      v2:
+        path: /api-docs
 
 snow-flake:
   datacenter-id: 1

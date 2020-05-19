@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lh.nailweb.mapper.fish.FishMapper">
+    <insert id="createFish">
+        INSERT INTO t_fish (
+            id,
+            name,
+            img,
+            price,
+            south_month,
+            north_month,
+            time,
+            place,
+            size,
+            createTime,
+            delFlag
+        )
+        VALUES
+          (
+            #{id},
+            #{name},
+            #{img},
+            #{price},
+            #{south_month},
+            #{north_month},
+            #{time},
+            #{place},
+            #{size},
+            #{createTime},
+            #{delFlag}
+          )
+    </insert>
+    <update id="editFish">
+        UPDATE
+          t_fish
+        SET
+          NAME = #{name},
+          img = #{img},
+          price = #{price},
+          south_month = #{south_month},
+          north_month = #{north_month},
+          TIME = #{time},
+          place = #{place},
+          size = #{size},
+          updateTime = #{updateTime}
+        where id = #{id}
+    </update>
+    <delete id="deleteFish">
+        UPDATE
+          t_fish
+        SET
+          delFlag = 1
+        where id = #{id}
+    </delete>
+    <select id="getFishList" resultType="com.lh.nailweb.entity.fish.Fish">
+        SELECT
+        f.*
+        FROM
+        t_fish f
+        <where>
+            AND f.delFlag = 0
+            <if test="fish.time != null and fish.time > 0">
+                AND f.time | #{fish.time} > 0
+            </if>
+            <if test="fish.region == 1 and fish.month != null and fish.month > 0">
+                AND f.north_month | #{fish.month} > 0
+            </if>
+            <if test="fish.region == 2 and fish.month != null and fish.month > 0">
+                AND f.south_month | #{fish.month} > 0
+            </if>
+            <if test="fish.place != null and fish.place > 0">
+                AND f.place = #{fish.place}
+            </if>
+            <if test="fish.have != null">
+                AND
+                <if test="fish.have">
+                    EXISTS
+                </if>
+                <if test="!fish.have">
+                    NOT EXISTS
+                </if>
+                (SELECT
+                *
+                FROM
+                t_fish_user fu
+                WHERE fu.fish_id = f.id
+                AND fu.user_id = #{userId})
+            </if>
+        </where>
+    </select>
+    <select id="getFishPage" resultType="com.lh.nailweb.entity.fish.Fish">
+        SELECT
+        f.*
+        FROM
+        t_fish f
+        <where>
+            AND f.delFlag = 0
+            <if test="name != null and name != ''">
+                AND f.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+        LIMIT ${current - 1} , #{size}
+    </select>
+    <select id="getFishPageTotal" resultType="java.lang.Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        t_fish f
+        <where>
+            AND f.delFlag = 0
+            <if test="name != null and name != ''">
+                AND f.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

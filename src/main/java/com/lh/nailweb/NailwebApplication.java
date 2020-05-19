@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
-@EnableAutoConfiguration
 @SpringBootApplication(scanBasePackages = {"com.lh.nailweb"})
 public class NailwebApplication {
 

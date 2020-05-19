@@ -11,7 +11,7 @@ import java.util.Date;
  * @description: 基础VO类
  */
 @ApiModel(value = "基础VO类", description = "基础VO类")
-public class BaseVo {
+public class BaseVO {
     @ApiModelProperty(value = "创建时间", name = "createTime")
     // 创建时间
     private Date createTime;

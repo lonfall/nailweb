@@ -8,6 +8,7 @@ import com.lh.nailweb.security.handler.MyAuthenticationFailureHandler;
 import com.lh.nailweb.security.handler.MyAuthenticationSuccessHandler;
 import com.lh.nailweb.security.handler.UnauthorizedEntryPointHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -39,6 +40,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    @Qualifier("customUserDetailsService")
     private UserDetailsService userDetailsService;
     @Autowired
     private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
