@@ -18,7 +18,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +46,12 @@ public class FishController {
     @GetMapping("/list")
     public BaseMsg getFishList(HttpServletRequest request, @ModelAttribute FishVO fishVO) {
         User user = loginUtils.getCurrentUser(request, jwtTokenUtil.getHeader());
-        List<Fish> list = fishService.getFishList(fishVO, user.getId());
+        List<Fish> list = null;
+        if (user != null) {
+            list = fishService.getFishListById(fishVO, user.getId());
+        } else {
+            list = fishService.getFishList(fishVO);
+        }
         return MsgUtils.success(list);
     }
 

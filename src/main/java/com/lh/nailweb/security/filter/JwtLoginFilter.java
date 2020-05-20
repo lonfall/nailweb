@@ -100,9 +100,9 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
 
         logger.info("用户登录成功，生成token:" + token);
 
-
-        // 设置cookie
-        CookieUtils.writeCookie(res, jwtTokenUtil.getHeader(), token);
+// 这里通过前端保存cookie
+//        // 设置cookie
+//        CookieUtils.writeCookie(res, jwtTokenUtil.getHeader(), token);
 
         res.addHeader(jwtTokenUtil.getHeader(), token);
 

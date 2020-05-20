@@ -15,7 +15,9 @@ import java.util.List;
  */
 @Mapper
 public interface FishMapper {
-    List<Fish> getFishList(@Param("fish") FishVO fishVO, @Param("userId") long userId);
+    List<Fish> getFishList(@Param("fish") FishVO fishVO);
+
+    List<Fish> getFishListById(@Param("fish") FishVO fishVO, @Param("userId") long userId);
 
     List<Fish> getFishPage(FishPage page);
 

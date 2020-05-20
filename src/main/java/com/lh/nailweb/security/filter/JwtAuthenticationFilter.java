@@ -1,6 +1,7 @@
 package com.lh.nailweb.security.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.lh.nailweb.config.IgnoreTokenConfig;
 import com.lh.nailweb.util.CookieUtils;
 import com.lh.nailweb.util.JwtTokenUtil;
 import com.lh.nailweb.util.LoginUtils;
@@ -41,6 +42,8 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     private UserDetailsService userDetailsService;
     @Autowired
     private LoginUtils loginUtils;
+    @Autowired
+    private IgnoreTokenConfig ignoreTokenConfig;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -58,7 +61,12 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         }
-        //获取token，先在header中取，如果取不到就在cookies中取
+//        // 如果servletPath在例外中，则不需要验证token
+//        if (ignoreTokenConfig.isIgnore(request.getServletPath())) {
+//            chain.doFilter(request, response);
+//            return;
+//        }
+        // 获取token，先在header中取，如果取不到就在cookies中取
         String token = request.getHeader(jwtTokenUtil.getHeader());
         if (StringUtils.isEmpty(token)) {
             token = loginUtils.getCookie(request, jwtTokenUtil.getHeader());
@@ -74,8 +82,9 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         // 如果令牌即将过期，则更新令牌
         if (jwtTokenUtil.isTokenSoonToExpired(token)) {
             String refreshToken = jwtTokenUtil.refreshToken(token);
-            // 设置cookie
-            CookieUtils.writeCookie(response, jwtTokenUtil.getHeader(), refreshToken);
+            // 通过前端保存cookie
+//            // 设置cookie
+//            CookieUtils.writeCookie(response, jwtTokenUtil.getHeader(), refreshToken);
             // 设置返回头，如果客户端不支持cookie那么需要客户端刷新token
             response.addHeader("refreshToken", refreshToken);
         }

@@ -52,6 +52,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private MyAccessDeniedHandler myAccessDeniedHandler;
     @Autowired
     private MyDisableUrlSessionFilter myDisableUrlSessionFilter;
+    @Autowired
+    private IgnoreTokenConfig ignoreTokenConfig;
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
@@ -83,6 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
                 // 允许匿名的url
+                .antMatchers(ignoreTokenConfig.getIgnoreServletPath()).permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/open-api/**").permitAll()
                 .antMatchers("/api-docs", "/swagger-resources/**", "/swagger-ui.html**", "/webjars/**").permitAll()

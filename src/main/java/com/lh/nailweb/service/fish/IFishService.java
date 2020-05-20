@@ -18,10 +18,18 @@ public interface IFishService {
      * 获取鱼类列表
      *
      * @param fishVO
+     * @return
+     */
+    List<Fish> getFishList(FishVO fishVO);
+
+    /**
+     * 获取鱼类列表（登录后）
+     *
+     * @param fishVO
      * @param userId
      * @return
      */
-    List<Fish> getFishList(FishVO fishVO, long userId);
+    List<Fish> getFishListById(FishVO fishVO, long userId);
 
     /**
      * 获取鱼类分页列表

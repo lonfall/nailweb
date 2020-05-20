@@ -30,8 +30,13 @@ public class FishServiceImpl implements IFishService {
     private SnowFlakeUtil snowFlakeUtil;
 
     @Override
-    public List<Fish> getFishList(FishVO fishVO, long userId) {
-        return mapper.getFishList(fishVO, userId);
+    public List<Fish> getFishList(FishVO fishVO) {
+        return mapper.getFishList(fishVO);
+    }
+
+    @Override
+    public List<Fish> getFishListById(FishVO fishVO, long userId) {
+        return mapper.getFishListById(fishVO, userId);
     }
 
     @Override
