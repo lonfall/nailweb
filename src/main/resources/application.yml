@@ -48,3 +48,7 @@ snow-flake:
 file:
   upload:
     dir: F:/nailweb/img
+
+logging:
+  level:
+    com.lh.nailweb.mapper.**: debug

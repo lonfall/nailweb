@@ -5,13 +5,19 @@ import com.lh.nailweb.entity.fish.Fish;
 import com.lh.nailweb.mapper.fish.FishMapper;
 import com.lh.nailweb.service.fish.IFishService;
 import com.lh.nailweb.util.SnowFlakeUtil;
+import com.lh.nailweb.util.enums.PlaceEnum;
+import com.lh.nailweb.util.enums.SizeEnum;
+import com.lh.nailweb.util.state.MonthState;
+import com.lh.nailweb.util.state.TimeState;
 import com.lh.nailweb.vo.fish.FishCreateVO;
 import com.lh.nailweb.vo.fish.FishEditVO;
+import com.lh.nailweb.vo.fish.FishListVO;
 import com.lh.nailweb.vo.fish.FishVO;
 import com.lh.nailweb.vo.page.fish.FishPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,12 +36,12 @@ public class FishServiceImpl implements IFishService {
     private SnowFlakeUtil snowFlakeUtil;
 
     @Override
-    public List<Fish> getFishList(FishVO fishVO) {
+    public List<FishListVO> getFishList(FishVO fishVO) {
         return mapper.getFishList(fishVO);
     }
 
     @Override
-    public List<Fish> getFishListById(FishVO fishVO, long userId) {
+    public List<FishListVO> getFishListById(FishVO fishVO, long userId) {
         return mapper.getFishListById(fishVO, userId);
     }
 
@@ -83,5 +89,48 @@ public class FishServiceImpl implements IFishService {
     @Override
     public int deleteFish(long id) {
         return mapper.deleteFish(id);
+    }
+
+    @Override
+    public List<FishListVO> fishListToVO(List<Fish> list) {
+        List<FishListVO> result = new ArrayList<>();
+        for (Fish fish : list) {
+            FishListVO vo = new FishListVO();
+            vo.setId(fish.getId());
+            vo.setName(fish.getName());
+            vo.setImg(fish.getImg());
+            vo.setPrice(fish.getPrice());
+            vo.setSouth_month(MonthState.valueToString(fish.getSouth_month()));
+            vo.setNorth_month(MonthState.valueToString(fish.getNorth_month()));
+            vo.setTime(TimeState.valueToString(fish.getTime()));
+            vo.setPlace(PlaceEnum.getName(fish.getPlace()));
+            vo.setSize(SizeEnum.getName(fish.getSize()));
+            result.add(vo);
+        }
+        return result;
+    }
+
+    @Override
+    public List<FishListVO> fishVOListToVO(List<FishListVO> list) {
+        for (FishListVO vo : list) {
+            vo.setId(vo.getId());
+            vo.setName(vo.getName());
+            vo.setImg(vo.getImg());
+            vo.setPrice(vo.getPrice());
+            vo.setSouth_month(MonthState.valueToString(Integer.valueOf(vo.getSouth_month())));
+            vo.setNorth_month(MonthState.valueToString(Integer.valueOf(vo.getNorth_month())));
+            vo.setTime(TimeState.valueToString(Integer.valueOf(vo.getTime())));
+            vo.setPlace(PlaceEnum.getName(Integer.valueOf(vo.getPlace())));
+            vo.setSize(SizeEnum.getName(Integer.valueOf(vo.getSize())));
+        }
+        return list;
+    }
+
+    @Override
+    public List<FishListVO> fishIsHave(List<FishListVO> list, long userId) {
+        for (FishListVO fish : list) {
+            fish.setHave(mapper.isHave(fish.getId(), userId) > 0);
+        }
+        return list;
     }
 }

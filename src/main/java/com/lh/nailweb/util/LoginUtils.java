@@ -38,6 +38,9 @@ public class LoginUtils {
 
     public User getCurrentUser(HttpServletRequest request, String name) {
         String token = getCookie(request, name);
+        if (StringUtils.isBlank(token)) {
+            token = request.getHeader(name);
+        }
         if (!StringUtils.isBlank(token)) {
             String username = jwtTokenUtil.getUsernameFromToken(token);
             if (!StringUtils.isBlank(username)) {

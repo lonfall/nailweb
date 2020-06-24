@@ -61,11 +61,11 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         }
-//        // 如果servletPath在例外中，则不需要验证token
-//        if (ignoreTokenConfig.isIgnore(request.getServletPath())) {
-//            chain.doFilter(request, response);
-//            return;
-//        }
+        // 如果servletPath在例外中，则不需要验证token
+        if (ignoreTokenConfig.isIgnore(request.getServletPath())) {
+            chain.doFilter(request, response);
+            return;
+        }
         // 获取token，先在header中取，如果取不到就在cookies中取
         String token = request.getHeader(jwtTokenUtil.getHeader());
         if (StringUtils.isEmpty(token)) {

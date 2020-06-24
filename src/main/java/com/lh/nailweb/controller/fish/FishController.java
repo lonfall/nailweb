@@ -10,6 +10,7 @@ import com.lh.nailweb.util.LoginUtils;
 import com.lh.nailweb.util.MsgUtils;
 import com.lh.nailweb.vo.fish.FishCreateVO;
 import com.lh.nailweb.vo.fish.FishEditVO;
+import com.lh.nailweb.vo.fish.FishListVO;
 import com.lh.nailweb.vo.fish.FishVO;
 import com.lh.nailweb.vo.page.fish.FishPage;
 import io.swagger.annotations.Api;
@@ -46,12 +47,13 @@ public class FishController {
     @GetMapping("/list")
     public BaseMsg getFishList(HttpServletRequest request, @ModelAttribute FishVO fishVO) {
         User user = loginUtils.getCurrentUser(request, jwtTokenUtil.getHeader());
-        List<Fish> list = null;
+        List<FishListVO> list;
         if (user != null) {
             list = fishService.getFishListById(fishVO, user.getId());
         } else {
             list = fishService.getFishList(fishVO);
         }
+        list = fishService.fishVOListToVO(list);
         return MsgUtils.success(list);
     }
 

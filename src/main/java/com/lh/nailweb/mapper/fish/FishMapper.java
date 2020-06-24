@@ -1,6 +1,7 @@
 package com.lh.nailweb.mapper.fish;
 
 import com.lh.nailweb.entity.fish.Fish;
+import com.lh.nailweb.vo.fish.FishListVO;
 import com.lh.nailweb.vo.fish.FishVO;
 import com.lh.nailweb.vo.page.fish.FishPage;
 import org.apache.ibatis.annotations.Mapper;
@@ -15,9 +16,9 @@ import java.util.List;
  */
 @Mapper
 public interface FishMapper {
-    List<Fish> getFishList(@Param("fish") FishVO fishVO);
+    List<FishListVO> getFishList(@Param("fish") FishVO fishVO);
 
-    List<Fish> getFishListById(@Param("fish") FishVO fishVO, @Param("userId") long userId);
+    List<FishListVO> getFishListById(@Param("fish") FishVO fishVO, @Param("userId") long userId);
 
     List<Fish> getFishPage(FishPage page);
 
@@ -28,4 +29,6 @@ public interface FishMapper {
     int editFish(Fish fish);
 
     int deleteFish(@Param("id") long id);
+
+    int isHave(@Param("id") long id, @Param("userId") long userId);
 }

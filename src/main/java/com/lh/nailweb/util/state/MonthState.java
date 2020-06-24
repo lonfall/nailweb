@@ -1,5 +1,9 @@
 package com.lh.nailweb.util.state;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @auther: loneyfall
  * @date: 2020/5/12
@@ -53,5 +57,69 @@ public enum MonthState {
 
     public static int removeState(MonthState state, int value) {
         return state.value ^ value;
+    }
+
+    public static String valueToString(int value) {
+        if (value == 4095) {
+            return "全年";
+        } else if (value > 4095 || value < 0) {
+            return "数据超出范围";
+        }
+        boolean head = false;
+        int start = -1;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < 12; i++) {
+            if (((1 << i) & value) != 0) {
+                if (i == 0) {
+                    head = true;
+                } else if (i == 11) {
+                    if (head) {
+                        int t = map.get(0);
+                        if (start < 0) {
+                            map.put(i, t);
+                        } else {
+                            map.put(start, t);
+                        }
+                        map.remove(0);
+                    } else {
+                        if (start < 0) {
+                            map.put(i, i);
+                        } else {
+                            map.put(start, i);
+                        }
+                    }
+                    start = -1;
+                    break;
+                }
+                if (start < 0) {
+                    start = i;
+                }
+                if (((1 << (i + 1)) & value) == 0) {
+                    map.put(start, i);
+                    start = -1;
+                }
+            }
+        }
+        if (start >= 0) {
+            map.put(start, start);
+        }
+        StringBuffer buffer = new StringBuffer();
+        boolean first = true;
+        for (int i = 0; i < 12; i++) {
+            if (map.get(i) != null) {
+                int x = i + 1;
+                int y = map.get(i) + 1;
+                if (!first) {
+                    buffer.append(" ");
+                }
+                if (x != y) {
+                    buffer.append(x + "月-" + y + "月");
+                } else {
+                    buffer.append(x + "月");
+                }
+                first = false;
+            }
+        }
+        return buffer.toString();
     }
 }

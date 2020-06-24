@@ -30,6 +30,14 @@
             #{delFlag}
           )
     </insert>
+    <insert id="isHave">
+        select
+        count(1)
+        from t_fish_user
+        where
+        fish_id = #{id}
+        and user_id = #{userId}
+    </insert>
     <update id="editFish">
         UPDATE
           t_fish
@@ -52,7 +60,7 @@
           delFlag = 1
         where id = #{id}
     </delete>
-    <select id="getFishList" resultType="com.lh.nailweb.entity.fish.Fish">
+    <select id="getFishList" resultType="com.lh.nailweb.vo.fish.FishListVO">
         SELECT
         f.*
         FROM
@@ -60,13 +68,13 @@
         <where>
             AND f.delFlag = 0
             <if test="fish.time != null and fish.time > 0">
-                AND f.time | #{fish.time} > 0
+                AND f.time &amp; #{fish.time} > 0
             </if>
             <if test="fish.region == 1 and fish.month != null and fish.month > 0">
-                AND f.north_month | #{fish.month} > 0
+                AND f.north_month &amp; #{fish.month} > 0
             </if>
             <if test="fish.region == 2 and fish.month != null and fish.month > 0">
-                AND f.south_month | #{fish.month} > 0
+                AND f.south_month &amp; #{fish.month} > 0
             </if>
             <if test="fish.place != null and fish.place > 0">
                 AND f.place = #{fish.place}
@@ -98,40 +106,38 @@
             </if>
         </where>
     </select>
-    <select id="getFishListById" resultType="com.lh.nailweb.entity.fish.Fish">
+    <select id="getFishListById" resultType="com.lh.nailweb.vo.fish.FishListVO">
         SELECT
-        f.*
+        f.*,
+        COUNT(fu.user_id) > 0 AS have
         FROM
         t_fish f
+        LEFT JOIN t_fish_user fu
+        ON fu.fish_id = f.id
+        AND fu.user_id = #{userId}
         <where>
             AND f.delFlag = 0
             <if test="fish.time != null and fish.time > 0">
-                AND f.time | #{fish.time} > 0
+                AND f.time &amp; #{fish.time} > 0
             </if>
             <if test="fish.region == 1 and fish.month != null and fish.month > 0">
-                AND f.north_month | #{fish.month} > 0
+                AND f.north_month &amp; #{fish.month} > 0
             </if>
             <if test="fish.region == 2 and fish.month != null and fish.month > 0">
-                AND f.south_month | #{fish.month} > 0
+                AND f.south_month &amp; #{fish.month} > 0
             </if>
             <if test="fish.place != null and fish.place > 0">
                 AND f.place = #{fish.place}
             </if>
-            <if test="fish.have != null">
-                AND
-                <if test="fish.have">
-                    EXISTS
-                </if>
-                <if test="!fish.have">
-                    NOT EXISTS
-                </if>
-                (SELECT
-                *
-                FROM
-                t_fish_user fu
-                WHERE fu.fish_id = f.id
-                AND fu.user_id = #{userId})
-            </if>
         </where>
+        GROUP BY f.id
+        <if test="fish.have != null">
+            <if test="fish.have">
+                HAVING have > 0
+            </if>
+            <if test="!fish.have">
+                HAVING have = 0
+            </if>
+        </if>
     </select>
 </mapper>

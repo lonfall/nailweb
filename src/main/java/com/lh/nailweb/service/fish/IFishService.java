@@ -3,6 +3,7 @@ package com.lh.nailweb.service.fish;
 import com.lh.nailweb.entity.fish.Fish;
 import com.lh.nailweb.vo.fish.FishCreateVO;
 import com.lh.nailweb.vo.fish.FishEditVO;
+import com.lh.nailweb.vo.fish.FishListVO;
 import com.lh.nailweb.vo.fish.FishVO;
 import com.lh.nailweb.vo.page.fish.FishPage;
 
@@ -20,7 +21,7 @@ public interface IFishService {
      * @param fishVO
      * @return
      */
-    List<Fish> getFishList(FishVO fishVO);
+    List<FishListVO> getFishList(FishVO fishVO);
 
     /**
      * 获取鱼类列表（登录后）
@@ -29,7 +30,7 @@ public interface IFishService {
      * @param userId
      * @return
      */
-    List<Fish> getFishListById(FishVO fishVO, long userId);
+    List<FishListVO> getFishListById(FishVO fishVO, long userId);
 
     /**
      * 获取鱼类分页列表
@@ -63,4 +64,29 @@ public interface IFishService {
      * @return
      */
     int deleteFish(long id);
+
+    /**
+     * fish list转vo
+     *
+     * @param list
+     * @return
+     */
+    List<FishListVO> fishListToVO(List<Fish> list);
+
+    /**
+     * fishVO list转vo
+     *
+     * @param list
+     * @return
+     */
+    List<FishListVO> fishVOListToVO(List<FishListVO> list);
+
+    /**
+     * 查询是否已捕捉
+     *
+     * @param list
+     * @param userId
+     * @return
+     */
+    List<FishListVO> fishIsHave(List<FishListVO> list, long userId);
 }
